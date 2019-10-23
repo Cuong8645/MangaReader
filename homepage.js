@@ -5,11 +5,11 @@ import {
     TextInput, SafeAreaView, Keyboard, TouchableOpacity,
     KeyboardAvoidingView, Button, ToolbarAndroid
 } from 'react-native';
-
 import Manga from './itemManga';
-
 export default class homepage extends Component {
-
+    // static navigationOptions = {
+    //     header: null
+    // };
 
     constructor(props) {
         super(props);
@@ -18,9 +18,9 @@ export default class homepage extends Component {
             isLoading: true
         };
     }
-
+    
     componentDidMount(){
-        return fetch('http://192.168.1.5/Select_Manga.php')
+        return fetch('http://10.0.3.2/Select_Manga.php')
           .then((response) => response.json())
           .then((responseJson) => {
     
@@ -38,10 +38,9 @@ export default class homepage extends Component {
       }
 
 
-
-
     render() {
         return  (
+            
             <View style={styles.container}>
                 <Text style={{fontSize: 20, marginLeft:130}}>Manga Home</Text>
                 <TextInput
@@ -53,27 +52,17 @@ export default class homepage extends Component {
                 />
                 <TouchableOpacity 
                   style = { styles.TouchableOpacityStyle } 
-                  onPress={() => this.goSearch()}>
+                  onPress={() => this.goSearch()}> 
                     <Text>Search</Text>
  
                 </TouchableOpacity>
 
-
-
-
-
-
+                
                 <FlatList style={{marginTop:10}}
                 data={this.state.dataSource}
-                renderItem={({item}) => <Manga tenMG={item.manga_name} desMG={item.manga_des} img={item.image}/>}
-         
-                />
-
-
-
-
-
-
+                renderItem={({item}) => (<Manga tenMG={item.manga_name} desMG={item.manga_des} img={item.image} mangaid={item.manga_id}/>)}
+                keyExtractor={item => item.id}
+                />                
             </View>
         )
     }
@@ -82,7 +71,6 @@ export default class homepage extends Component {
         alert("go to search"); 
     }
 }
-
 const styles = StyleSheet.create({
     container:{
         flex: 1,

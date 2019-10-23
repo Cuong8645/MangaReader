@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
     StyleSheet, Text, View, Image,
     TouchableWithoutFeedback, StatusBar,
     TextInput, SafeAreaView, Keyboard, TouchableOpacity,
-    KeyboardAvoidingView, Button, ToolbarAndroid
-} from 'react-native'
+    KeyboardAvoidingView,TouchableHighlight,AsyncStorage,
+} from 'react-native';
 export default class LoginScreen extends Component {
 
     constructor(props) {
@@ -29,7 +29,7 @@ export default class LoginScreen extends Component {
                                 <Image style={styles.logo}
                                     source={{ uri: 'https://cdn0.iconfinder.com/data/icons/BrushedMetalIcons_meBaze/512/Apple-03.png' }}>
                                 </Image>
-                                <Text style={styles.title}>Login</Text>
+                                <Text style={styles.title}>Sign In</Text>
                             </View>
                             <View style={styles.infoContainer}>
                                 <TextInput style={styles.input}
@@ -54,15 +54,11 @@ export default class LoginScreen extends Component {
                                 />
 
                                 <TouchableOpacity style={styles.buttonContainer} onPress={() => this.login() } >
-                                    <Text style={styles.buttonText}>SIGN IN</Text>
+                                    <Text style={styles.buttonText}>Login</Text>
                                 </TouchableOpacity>
 
-                                <TouchableHighlight style={styles.buttonContainer} onPress={() => this.onClickListener('Restore_password')}>
-                                    <Text>Forgot your password?</Text>
-                                </TouchableHighlight>
-
-                                <TouchableHighlight style={styles.buttonContainer} onPress={() => this.onClickListener('Register')}>
-                                    <Text>Register</Text>
+                                <TouchableHighlight style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('SignUp')}>
+                                    <Text style={styles.buttonText}>Register</Text>
                                 </TouchableHighlight>
                                 
                             </View>
@@ -74,10 +70,9 @@ export default class LoginScreen extends Component {
 
         )
     }
-
     login() {
 
-        fetch('http://192.168.1.5/login.php', {
+        fetch('http://10.0.3.2/login.php', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -85,16 +80,18 @@ export default class LoginScreen extends Component {
             },
             body: JSON.stringify({
                 username: this.state.username,
-                password: this.state.password
+                password: this.state.password,
             }),
         })
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson == "true") {
                     alert("Successfully Login");
+                    this.props.navigation.navigate('Home');
                     
                 } else {
                     alert("Login Failed");
+                    return (false);
                 }
             })
             .catch((error) => {
