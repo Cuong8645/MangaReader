@@ -68,7 +68,32 @@ export default class homepage extends Component {
     }
     goSearch()
     {
-        alert("go to search"); 
+        fetch('http://10.0.2.2:8080/exe4/Select_search.php', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                keyword: this.state.keyword,
+         
+            }),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                this.setState({
+                  isLoading: false,
+                  dataSource: responseJson,
+                }, function(){
+        
+                });
+        
+              })
+              .catch((error) =>{
+                console.error(error);
+              });
+ 
     }
 }
 const styles = StyleSheet.create({
