@@ -13,13 +13,13 @@ import Homepage from './homepage';
 import SignUp from './SignUp';
 import MangaDetail from './ManGaDetail';
 import item from './itemManga';
+console.disableYellowBox = true;
 const RootStack = createStackNavigator(
   {
     Login: LoginScreen,
     Home: Homepage,
     SignUp: SignUp,
     Detail: MangaDetail,
-    item: item,
   },
   {
     initialRouteName: 'Login',
