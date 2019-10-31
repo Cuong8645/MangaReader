@@ -6,6 +6,7 @@ import {
     KeyboardAvoidingView, Button, ToolbarAndroid
 } from 'react-native';
 import Manga from './itemManga';
+import itemManga from './itemManga';
 export default class homepage extends Component {
     // static navigationOptions = {
     //     header: null
@@ -39,6 +40,7 @@ export default class homepage extends Component {
 
 
     render() {
+        const {navigation} = this.props;
         return  (
             
             <View style={styles.container}>
@@ -56,19 +58,28 @@ export default class homepage extends Component {
                     <Text>Search</Text>
  
                 </TouchableOpacity>
-
+                
                 
                 <FlatList style={{marginTop:10}}
                 data={this.state.dataSource}
-                renderItem={({item}) => (<Manga tenMG={item.manga_name} desMG={item.manga_des} img={item.image} mangaid={item.manga_id}/>)}
+                renderItem={({item}) => (
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Detail',{
+                        img: item.image,
+                        des: item.manga_des,
+                        name: item.manga_name,
+                        id: item.manga_id
+                    })}>
+                <Manga tenMG={item.manga_name} desMG={item.manga_des} img={item.image} mangaid={item.manga_id} />
+                </TouchableOpacity>)}
                 keyExtractor={item => item.id}
-                />                
+                
+                />               
             </View>
         )
     }
     goSearch()
     {
-        fetch('http://10.0.2.2:8080/exe4/Select_search.php', {
+        fetch('http://10.0.3.2/Select_search.php', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -95,7 +106,7 @@ export default class homepage extends Component {
               });
  
     }
-}
+    }
 const styles = StyleSheet.create({
     container:{
         flex: 1,

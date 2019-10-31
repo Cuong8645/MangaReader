@@ -10,10 +10,12 @@ import {
 export default class itemManga extends Component{
     constructor(props){
       super(props);
-      this.state={}
+      this.state={};
     }
+  
     render() {
         return (
+          
           <View style={styles.manga}>
             <View style={styles.containerImg}>
               <View>
@@ -30,7 +32,6 @@ export default class itemManga extends Component{
         );
       }
 }
-
 const styles = StyleSheet.create({
     manga: {
       justifyContent: 'center',
