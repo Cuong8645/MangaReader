@@ -24,7 +24,7 @@ export default class SignUp extends Component {
       return (
           <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Image style={styles.inputIcon} source={{uri:'https://image.flaticon.com/icons/svg/1828/1828453'}}/>
+          <Image style={styles.inputIcon} source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStLfl81YKHb9AEy61r4qRbJ66WZI7Z3ghKZ_phuBEk7rS1Ugec&s'}}/>
           <TextInput style={styles.inputs}
               placeholder="User account"
               keyboardType="email-address"
@@ -43,6 +43,9 @@ export default class SignUp extends Component {
       <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.register()}>
           <Text style={styles.loginText}>Register</Text>
         </TouchableHighlight>
+        <TouchableHighlight style={styles.buttonR} onPress={() => this.props.navigation.navigate('Login')}>
+                                    <Text style={styles.textLink}>LogIn</Text>
+                                </TouchableHighlight>
       </View>
       );
     }
@@ -50,7 +53,8 @@ export default class SignUp extends Component {
 
     register= () => {
         {
-            fetch('http://10.0.3.2/SignUp.php',
+            fetch('http://192.168.128.177:8080/webservice/SignUp.php',
+            
             {
                 method: 'POST',
                 headers: 
@@ -83,7 +87,7 @@ export default class SignUp extends Component {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#DCDCDC',
+      backgroundColor: '#0869ff',
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
@@ -122,5 +126,18 @@ export default class SignUp extends Component {
     },
     loginText: {
       color: 'white',
-    }
+    },
+    textLink:{
+      textAlign: 'center',
+      color: '#FFFFFF',
+      fontWeight: 'bold',
+      fontSize: 15
+  },
+  buttonR:{
+      marginTop: 70,
+      borderBottomColor:'green',
+      borderBottomWidth: 5,
+      width: '40%',
+     
+  },
   });

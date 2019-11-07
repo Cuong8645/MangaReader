@@ -6,7 +6,6 @@ import {
     KeyboardAvoidingView, Button, ToolbarAndroid
 } from 'react-native';
 import Manga from './itemManga';
-import itemManga from './itemManga';
 export default class homepage extends Component {
     // static navigationOptions = {
     //     header: null
@@ -21,7 +20,7 @@ export default class homepage extends Component {
     }
     
     componentDidMount(){
-        return fetch('http://10.0.3.2/Select_Manga.php')
+        return fetch('http://192.168.128.177:8080/webservice/Select_Manga.php')
           .then((response) => response.json())
           .then((responseJson) => {
     
@@ -44,20 +43,30 @@ export default class homepage extends Component {
         return  (
             
             <View style={styles.container}>
-                <Text style={{fontSize: 20, marginLeft:130}}>Manga Home</Text>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder="Name"
-                    onChangeText={(text) => this.setState({ keyword: text })}
-                    value={this.state.keyword}
+               
                 
-                />
-                <TouchableOpacity 
-                  style = { styles.TouchableOpacityStyle } 
+
+
+
+              
+
+                <View style={styles.inputContainer}>
+                <TextInput style={styles.inputs}
+              placeholder="Search"
+              keyboardType="Search"
+              underlineColorAndroid='transparent'
+              onChangeText={(text) => this.setState({ keyword: text })}/><TouchableOpacity 
+
                   onPress={() => this.goSearch()}> 
-                    <Text>Search</Text>
- 
-                </TouchableOpacity>
+              <Image style={styles.inputIcon} source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoM6hSmnSJHrHN04idD8IWOXbGfg7MYBXuQwofa7vtPwIEvDtROg&s'}}/>
+                
+
+              
+                    </TouchableOpacity>
+
+
+        </View>
+
                 
                 
                 <FlatList style={{marginTop:10}}
@@ -69,7 +78,7 @@ export default class homepage extends Component {
                         name: item.manga_name,
                         id: item.manga_id
                     })}>
-                <Manga tenMG={item.manga_name} desMG={item.manga_des} img={item.image} mangaid={item.manga_id} />
+                <Manga tenMG={item.manga_name} desMG={item.theloai} img={item.image} mangaid={item.manga_id} />
                 </TouchableOpacity>)}
                 keyExtractor={item => item.id}
                 
@@ -79,7 +88,9 @@ export default class homepage extends Component {
     }
     goSearch()
     {
-        fetch('http://10.0.3.2/Select_search.php', {
+
+        
+        fetch('http://192.168.128.177:8080/webservice/Select_search.php', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -110,17 +121,9 @@ export default class homepage extends Component {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        padding: 20,
+        padding: 0,
     },
-    textInput:{
-        height: 40,
-        marginLeft: 15,
-        marginRight: 15,
-        marginTop: 10, 
-        borderColor: '#009688',
-        borderWidth: 1, 
-        borderRadius: 20
-    },
+   
     TouchableOpacityStyle:
     {  
         marginLeft:310,
@@ -128,4 +131,28 @@ const styles = StyleSheet.create({
        width: '10%'
   
      },
+    inputs:{
+        height:50,
+        marginLeft:16,
+        borderBottomColor: '#FFFFFF',
+        flex:1,
+    },
+    inputIcon:{
+      width:30,
+      height:30,
+      marginRight:25,
+      justifyContent: 'center'
+    },
+    inputContainer: {
+        borderBottomColor: '#c60000',
+        backgroundColor: '#FFFFFF',
+        borderRadius:30,
+        borderBottomWidth: 2,
+        width:'100%',
+        height:50,
+        marginBottom:20,
+        flexDirection: 'row',
+        alignItems:'center',
+        marginTop:20,
+    },
 })

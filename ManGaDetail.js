@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import {FlatList, StyleSheet, Text, View, TextInput, Button, Alert, Image, TouchableOpacity } from 'react-native';
+import {FlatList, StyleSheet, Text,ScrollView, View, TextInput, Button, Alert, Image, TouchableOpacity } from 'react-native';
 import Chapter from './itemChapter';
  
 
 
-var arrayChapter = ["Chapter 1", "Chapter 2", "Chapter 1", "Chapter 2", "Chapter 2", "Chapter 1", "Chapter 2"]
 
 
 export default class MangaDetail extends Component {
@@ -12,18 +11,19 @@ export default class MangaDetail extends Component {
         super(props);
         this.state = {
             search: "",
-            dataSource: {}
+            dataSource: {},
+            
             };
         
       }
       componentDidMount(){
-        return fetch('http://10.0.3.2/Select_Manga.php')
+        return fetch('http://192.168.128.177:8080/webservice/Select_Manga.php')
           .then((response) => response.json())
           .then((responseJson) => {
     
             this.setState({
               isLoading: false,
-              dataSource: responseJson,
+              index: responseJson,
             }, function(){
     
             });
@@ -32,33 +32,112 @@ export default class MangaDetail extends Component {
           .catch((error) =>{
             console.error(error);
           });
-          console.log('dataSource',this.state.dataSource)
+          
       }
-   
+
+
+      getCount(idManGa){
+        fetch('http://192.168.128.177:8080/webservice/getCountManGa.php', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idManGa: idManGa,
+         
+            }),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                this.setState({
+                  isLoading: false,
+                  index: responseJson,
+                }, function(){
+        
+                });
+        
+              })
+              .catch((error) =>{
+                console.error(error);
+              });
+              
+      }
+
+
+      
+      getChapter(idManGa){
+        fetch('http://192.168.128.177:8080/webservice/Select_Manga_Chapter.php', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                idManGa: idManGa,
+         
+            }),
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                this.setState({
+                  isLoading: false,
+                  arrayChapter: responseJson,
+                }, function(){
+        
+                });
+        
+              })
+              .catch((error) =>{
+                console.error(error);
+              });
+        
+          
+      }
     render(){
         const{ navigation} = this.props;
+        var idManGa = navigation.getParam('id');
+        this.getChapter(idManGa);
+        this.getCount(idManGa)
         return (
             <View style={styles.Container}>
-                <Text style={{fontSize: 20, marginLeft:130}}>Manga Detail</Text>
-                <View style={styles.search}>
                 
- 
+                <View>
+                    <Image style={styles.img} source={{uri: navigation.getParam('img')}} />
                 </View>
-                <Text >
-                 {JSON.stringify(navigation.getParam('name'))}
+                <Text style={styles.titleText}>
+                {navigation.getParam('name')}
+                </Text> 
+
+
+                <ScrollView style={styles.scrollView}>
+                   
+
+                <Text style={styles.dec}>
+                 {navigation.getParam('des')}
                 </Text>    
-                <Text >
-                 {JSON.stringify(navigation.getParam('id'))}
-                </Text>                           
 
               
                 <FlatList style={styles.chaplist}
-                    data={arrayChapter}
-                    renderItem={({item, index}) =>
-                    <Chapter Chapter = {item}></Chapter>
-          }
-        />
-            
+                    data={this.state.arrayChapter}
+                    renderItem={({item, index}) =>(
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Manga',{
+                            id_Manga:navigation.getParam('id'),
+                            soChapter:item.soChapter,
+                            id: item.id,
+                            indexChap: this.state.index,
+                        })}>
+                        <Chapter Chapter = {item.soChapter}/>
+                    </TouchableOpacity>)}
+                     keyExtractor={item => item.id}
+                />
+       
+        <View style={{height:140}} >
+
+        </View>
+            </ScrollView>
 
             </View>
         );
@@ -70,13 +149,28 @@ const styles = StyleSheet.create({
        
         
     },
+    scrollView: {
+        backgroundColor: '#caacfe',
+      },
+    titleText: {
+        marginTop: -40,
+        marginLeft: 10,
+        marginRight:10,
+        fontSize: 25,
+        color:'#fe9d0b',
+        fontWeight: 'bold',
+    },
     img:{
-        marginTop:20,
-        marginLeft: 50,
-        width:300,
-        height:300, 
+        marginTop:0,
+        marginLeft: 0,
+        marginRight: 0,
+        backgroundColor: 'black',
+        width: '100%',
+        resizeMode: 'contain',
+        height:250, 
     },
     dec:{
+
         marginLeft: 30,
         marginRight: 30,
         marginTop: 10,
@@ -85,10 +179,8 @@ const styles = StyleSheet.create({
 
     },
     chaplist:{
-        marginLeft: 60,
         marginTop: 10,
-        marginRight: 50,
-        marginBottom:10,
+        paddingBottom:10,
         borderWidth: 1, 
         borderColor: '#009688'
     },

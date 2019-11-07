@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import { TouchableOpacity, StyleSheet, Text, View, Image} from 'react-native';
 
 var icon;
@@ -9,7 +9,7 @@ export default class Chapter extends Component{
 
 
                 <View style={styles.containerContent}>
-                    <Text> {this.props.Chapter} </Text>
+                    <Text style={styles.chap}> Chapter: {this.props.Chapter} </Text>
                 </View>       
             </View>
         );
@@ -21,13 +21,16 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       //alignItems: 'center',
       backgroundColor: 'lightgreen',
-      width:300,
-      height: 40,
-      marginBottom : 1
+      width:'100%',
+      height: 70,
+      marginBottom : 1,
+      fontSize: 30
     },
-  
+    chap:{
+        marginLeft:10,
+    },
     containerContent: {
-      marginLeft: 100
+      marginLeft: 10,
+      marginTop: -10,
     },
   });
-  

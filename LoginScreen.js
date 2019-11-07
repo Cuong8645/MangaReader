@@ -27,12 +27,26 @@ export default class LoginScreen extends Component {
                         <View style={styles.logoContainer}>
                             <View style={styles.logoContainer}>
                                 <Image style={styles.logo}
-                                    source={{ uri: 'https://cdn0.iconfinder.com/data/icons/BrushedMetalIcons_meBaze/512/Apple-03.png' }}>
+                                    source={{ uri: 'https://lh3.googleusercontent.com/bVG8fpwWkK9Or7ji54jvAY_RJhtkMoil1TZbFHoIc7ut5u8wuPwbNvhbif_dWTxbEOo' }}>
                                 </Image>
-                                <Text style={styles.title}>Sign In</Text>
+                                <Text style={styles.title}>Manga Reader</Text>
                             </View>
+
+
+                            
+
+
+
                             <View style={styles.infoContainer}>
-                                <TextInput style={styles.input}
+                            <View style={styles.inputContainer}>
+                            <Image style={styles.inputIcon} source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStLfl81YKHb9AEy61r4qRbJ66WZI7Z3ghKZ_phuBEk7rS1Ugec&s'}}/>
+                            <TextInput style={styles.inputs}
+                                placeholder="User account"
+                                keyboardType="email-address"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(username) => this.setState({username})}/>
+                            </View>
+                                {/* <TextInput style={styles.input}
                                     value={this.state.username}
                                     onChangeText={username => this.setState({ username })}
                                     placeholder="Enter username/email"
@@ -41,24 +55,22 @@ export default class LoginScreen extends Component {
                                     returnKeyType='next'
                                     autoCorrect={false}
                                     onSubmitEditing={() => this.refs.txtPassword.focus()}
-                                />
-                                <TextInput style={styles.input}
-                                    value={this.state.password}
-                                    onChangeText={password => this.setState({ password })}
-                                    placeholder="Enter password"
-                                    placeholderTextColor='#455a64'
-                                    returnKeyType='go'
-                                    secureTextEntry
-                                    autoCorrect={false}
-                                    ref={"txtPassword"}
-                                />
+                                /> */}
+                                <View style={styles.inputContainer}>
+        <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+        <TextInput style={styles.inputs}
+            placeholder="Enter password"
+            secureTextEntry={true}
+            underlineColorAndroid='transparent'
+            onChangeText={(password) => this.setState({password})}/>
+      </View>
 
                                 <TouchableOpacity style={styles.buttonContainer} onPress={() => this.login() } >
                                     <Text style={styles.buttonText}>Login</Text>
                                 </TouchableOpacity>
 
-                                <TouchableHighlight style={styles.buttonContainer} onPress={() => this.props.navigation.navigate('SignUp')}>
-                                    <Text style={styles.buttonText}>Register</Text>
+                                <TouchableHighlight style={styles.buttonR} onPress={() => this.props.navigation.navigate('SignUp')}>
+                                    <Text style={styles.textLink}>Register</Text>
                                 </TouchableHighlight>
                                 
                             </View>
@@ -72,7 +84,7 @@ export default class LoginScreen extends Component {
     }
     login() {
 
-        fetch('http://10.0.3.2/login.php', {
+        fetch('http://192.168.128.177:8080/webservice/login.php', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -86,7 +98,7 @@ export default class LoginScreen extends Component {
             .then((response) => response.json())
             .then((responseJson) => {
                 if (responseJson == "true") {
-                    alert("Successfully Login");
+                  
                     this.props.navigation.navigate('Home');
                     
                 } else {
@@ -104,50 +116,66 @@ export default class LoginScreen extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 2,
+        flex: 1,
         // backgroundColor: 'rgb(32, 53, 70)', 
-        backgroundColor: "#455a64",
+        backgroundColor: "#0869ff",
         flexDirection: 'column',
 
     },
     logoContainer: {
         alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: 10,
         flex: 1,
-        backgroundColor: '#455a64'
+        backgroundColor: '#0869ff'
     },
     logo: {
-        width: 128,
+        width: 130,
         height: 120,
 
     },
     title: {
-        color: '#FFFFFF',
-        fontSize: 20,
+        color: '#ffeb3b',
+        fontSize: 35,
         textAlign: 'center',
         marginTop: 5,
         opacity: 0.9,
+        fontWeight: 'bold',
         marginBottom: 150
     },
     infoContainer: {
-        marginBottom: 70,
+        marginBottom: 200,
         position: 'absolute',
         left: 0,
         right: 0,
         bottom: 0,
         height: 200,
         padding: 20,
+    
         // backgroundColor: 'red'
     },
-    input: {
-        marginBottom: 20,
-        height: 40,
-        color: '#775da9',
-        borderColor: '#FFFFFF',
+    inputContainer: {
+        borderBottomColor: '#F5FCFF',
         backgroundColor: '#FFFFFF',
-        borderWidth: 2,
-        borderRadius: 20,
-        fontSize: 15
+        borderRadius:30,
+        borderBottomWidth: 1,
+        width:'100%',
+        height:50,
+        marginBottom:20,
+        flexDirection: 'row',
+        alignItems:'center'
+    },
+    inputs:{
+        height:50,
+        marginLeft:20,
+        marginRight:20,
+        borderBottomColor: '#FFFFFF',
+        flex:1,
+    },
+    inputIcon:{
+      width:30,
+      height:30,
+      marginLeft:15,
+      justifyContent: 'center'
     },
     buttonContainer: {
         backgroundColor: '#6193ab',
@@ -156,6 +184,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginBottom: 20
 
+
     },
     buttonText: {
         textAlign: 'center',
@@ -163,8 +192,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 15
     },
-    hello: {
-        marginTop: 450
-    }
+    textLink:{
+        textAlign: 'center',
+        color: '#222',
+        fontWeight: 'bold',
+        fontSize: 15
+    },
+    buttonR:{
+        marginTop: 70,
+        borderBottomColor:'green',
+        borderBottomWidth: 5,
+        width: '40%',
+        marginLeft: 100
+    },
 
 })

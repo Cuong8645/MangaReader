@@ -37,11 +37,9 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       //alignItems: 'center',
       backgroundColor: '#DDDDDD',
-      width: 300,
+      width: '100%',
       height: 110,
       marginBottom : 10,
-      borderRadius: 4,
-      borderWidth: 0.5,
     },
     idMG:{
       marginTop: 300,
