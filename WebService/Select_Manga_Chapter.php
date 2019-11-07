@@ -12,14 +12,10 @@ $obj = json_decode($json,true);
 if ($conn->connect_error) { 
  die("Connection failed: " . $conn->connect_error);
 } 
- $keyword = $obj['keyword'];
+ $idManGa = $obj['idManGa'];
  
- $sql = "";
- if ($keyword == "") {
-	$sql = "SELECT * FROM manga";
-} else{
-	$sql = "SELECT * FROM manga WHERE manga_name LIKE '%$keyword%'";
-}
+
+$sql = "SELECT * FROM chapter WHERE id_Manga = $idManGa ORDER BY soChapter";
 
  
 $result = $conn->query($sql);
@@ -36,17 +32,8 @@ if ($result->num_rows >0) {
  }
  
 } else {
-	$sql = "SELECT * FROM manga";
-	$result = $conn->query($sql);
-	while($row[] = $result->fetch_assoc()) {
- 
-		$tempt = $row;
- 
-		$json = json_encode($tempt);
- 
- 
-	}
-
+echo $json;
+ echo "No Results Found.";
 }
 
  echo $json;
