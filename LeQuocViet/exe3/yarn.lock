@@ -5131,9 +5131,9 @@ punycode@^2.1.0, punycode@^2.1.1:
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
 qs@~6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
-  integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.3.tgz#3aeeffc91967ef6e35c0e488ef46fb296ab76aad"
+  integrity sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==
 
 range-parser@~1.2.1:
   version "1.2.1"
@@ -5150,6 +5150,13 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-description-box@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-description-box/-/react-description-box-1.0.1.tgz#54e57638623ef269e05bb0a817c8df4ec9be92c5"
+  integrity sha512-3oEDiev2uiIYkbygy+h7hK8HkUZ9PL+5DlAEVMkUEnqzYSN9ZFeXcWMB4DqcGTrGLqGQQTiCVSS5kJulYia2Ug==
+  dependencies:
+    str_shorten "^1.0.6"
+
 react-devtools-core@^3.6.3:
   version "3.6.3"
   resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-3.6.3.tgz#977d95b684c6ad28205f0c62e1e12c5f16675814"
@@ -5162,6 +5169,11 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.9.0:
   version "16.10.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.10.2.tgz#984120fd4d16800e9a738208ab1fba422d23b5ab"
   integrity sha512-INBT1QEgtcCCgvccr5/86CfD71fw9EPmDxgiJX4I2Ddr6ZsV6iFXsuby+qWJPtmNuMY0zByTsG4468P7nHuNWA==
+
+react-native-simple-radio-button@^2.7.4:
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/react-native-simple-radio-button/-/react-native-simple-radio-button-2.7.4.tgz#86e2dbe8af9e6bf60eee088f60466f7a975e7758"
+  integrity sha512-QOZNmJUn0ViBGU+at7wAG/uGzd5PfXi0kMHr9lfTCLXknW/f9f2fOVjxjdHvOCdf/zA/eMJBjGjtusSDzQf1+w==
 
 react-native@0.61.2:
   version "0.61.2"
@@ -5858,6 +5870,11 @@ stealthy-require@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
+
+str_shorten@^1.0.6:
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/str_shorten/-/str_shorten-1.0.18.tgz#bba215ce45135f820bb85851480dab97808e7ff7"
+  integrity sha512-r97LddCXSwamlPRbqzkNBRxjLqUsI2SMRDdGgNYWmAMkZCEHV3UASN1x0WH+/AEqEqhhffMRiOt/JZA18H3mcQ==
 
 stream-buffers@~2.2.0:
   version "2.2.0"
